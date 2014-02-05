@@ -26,13 +26,6 @@
 FROM ${NAMESPACE}/gentoo-stage3:${TAG}
 MAINTAINER ${MAINTAINER}
 
-# Locale
-RUN echo en_US ISO-8859-1 > /etc/locale.gen
-RUN echo en_US.UTF-8 UTF-8 >> /etc/locale.gen
-RUN locale-gen
-RUN echo 'LANG="en_US.UTF-8"' >> /etc/env.d/02locale
-RUN env-update
-
 # Portage
 RUN sed -i 's/#rc_sys=""/rc_sys="lxc"/g' /etc/rc.conf
 RUN echo 'GENTOO_MIRRORS="http://mirror.ovh.net/gentoo-distfiles ftp://mirror.ovh.net/gentoo-distfiles"' >> /etc/portage/make.conf
@@ -42,7 +35,18 @@ RUN emerge-webrsync
 RUN emerge --sync --quiet
 RUN eselect news read new
 
+# Locale
+RUN echo en_US ISO-8859-1 > /etc/locale.gen
+RUN echo en_US.UTF-8 UTF-8 >> /etc/locale.gen
+RUN locale-gen
+RUN echo 'LANG="en_US.UTF-8"' >> /etc/env.d/02locale
+RUN env-update
+
 # Cron and logger
 RUN emerge -v sys-process/vixie-cron app-admin/syslog-ng app-admin/logrotate
 RUN rc-update add syslog-ng default
 RUN rc-update add vixie-cron default
+
+# Osso user
+groupadd -g 1000 osso
+useradd -g osso -u 1000 osso
