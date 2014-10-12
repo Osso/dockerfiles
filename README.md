@@ -1,39 +1,26 @@
-[Dockerfiles][] for assorted [Gentoo][]-based [Docker][] images.
+[Dockerfiles][] for assorted [Ubuntu][]-based [Docker][] images.
 
-Dockerfiles are sorted into directories with names matching the
-suggested repository.  To avoid duplicating ephemeral data (namespace,
-timestamp tag, …), they appear in the `Dockerfile.template` as markers
-(`${NAMESPACE}`, `${TAG}`, …).  The `build.sh` script replaces the
-markers with values while generating a `Dockerfile` from each
-`Dockerfile.template` (using [envsubst][]), and then builds each tag
+Dockerfiles are sorted into directories with names matching their function.
+To avoid duplication all images extend base which defines the maintainer
+and contains updated packages. The `Makefile` script builds each tag
 with:
 
-    $ docker build -t $NAMESPACE/$REPO:$TAG $REPO
+    $ docker build -t $image_name .
 
 for example:
 
-    $ docker build -t osso/gentoo-stage3:20140130 gentoo
+    $ docker build -t smartmontools .
 
 The dependency graph is:
 
-    osso/gentoo-stage3  (amd64 stage3)
-    `-- gentoo  (adds portage directory)
+    base  (ubuntu,amd64)
+    `-- smartmontools  (disks monitoring)
 
 Run:
 
-    $ ./build.sh
+    $ make
 
-to seed from the Gentoo mirrors and build all images.  There are a
-number of variables in the `build.sh` script that configure the build
-(`AUTHOR`, `NAMESPACE`, …).  We use [POSIX parameter
-expansion][parameter-expansion] to make it easy to override variables
-as you see fit.
-
-    $ NAMESPACE=jdoe DATE=20140130 ./build.sh
-
+to build all images.
 
 [Docker]: http://www.docker.io/
 [Dockerfiles]: http://www.docker.io/learn/dockerfile/
-[Gentoo]: http://www.gentoo.org/
-[envsubst]: http://www.gnu.org/software/gettext/manual/html_node/envsubst-Invocation.html
-[parameter-expansion]: http://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_06_02
