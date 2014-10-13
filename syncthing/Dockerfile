@@ -1,4 +1,4 @@
-FROM base
+FROM ossoleil/base
 
 RUN apt-get -qq install software-properties-common
 RUN add-apt-repository ppa:ytvwld/syncthing

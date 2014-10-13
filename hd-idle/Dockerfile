@@ -1,4 +1,4 @@
-FROM base
+FROM ossoleil/base
 
 RUN apt-get -qq install debhelper
 RUN apt-get -qq install wget
