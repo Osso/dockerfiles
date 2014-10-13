@@ -4,6 +4,7 @@ MAINTAINER Alessio Deiana <adeiana@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update
+RUN apt-get -qq upgrade
 
 RUN dpkg-reconfigure locales && \
     locale-gen en_US.UTF-8 && \
