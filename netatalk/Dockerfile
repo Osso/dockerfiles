@@ -9,7 +9,7 @@ RUN apt-get update -qq
 
 RUN apt-get -qq install netatalk
 
-ADD afpd.conf /etc/netatalk/afp.conf
+ADD afp.conf /etc/netatalk/afp.conf
 
 RUN groupadd -g 1002 afpd
 RUN useradd -g 1002 -u 1002 afpd
