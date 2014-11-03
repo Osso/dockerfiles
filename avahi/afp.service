@@ -11,4 +11,10 @@
         <port>548</port>
         <txt-record>model=Xserve</txt-record>
     </service>
+    <service>
+        <type>_adisk._tcp</type>
+        <port>9</port>
+        <txt-record>sys=waMA=XX:XX:XX:XX:XX:XX,adVF=0x100</txt-record>
+        <txt-record>dk1=adVF=0x83,adVN=TimeMachine</txt-record>
+    </service>
 </service-group>
