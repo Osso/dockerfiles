@@ -1,6 +1,6 @@
 FROM ossoleil/base
 
-RUN apt-get -qq install software-properties-common
+RUN apt-get -qq install software-properties-common curl
 
 # Add the release PGP keys:
 RUN curl -s https://syncthing.net/release-key.txt | apt-key add -
