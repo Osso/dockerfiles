@@ -1,6 +1,9 @@
-FROM ossoleil/base
+FROM ubuntu:15.10
+MAINTAINER Alessio Deiana <adeiana@gmail.com>
 
-RUN apt-get -qq install samba
+RUN apt-get update && \
+    apt-get -qq install samba && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD smb.conf /etc/samba/smb.conf
 
