@@ -1,7 +1,8 @@
-FROM ubuntu:15.10
+FROM ubuntu:16.04
 MAINTAINER Alessio Deiana <adeiana@gmail.com>
 
 RUN apt-get update && \
+    apt-get install -y apt-transport-https && \
     apt-get install -y curl && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
